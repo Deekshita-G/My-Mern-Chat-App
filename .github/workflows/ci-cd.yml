@@ -14,13 +14,14 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Debug build context
         run: |
           pwd
           ls -la
           ls -la backend
+          find backend -maxdepth 2 -type f | sort
           test -f backend/package.json
           test -f backend/package-lock.json
           test -f backend/Dockerfile

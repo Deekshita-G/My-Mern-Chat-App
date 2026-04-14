@@ -6,3 +6,5 @@ frontend/build
 .gitignore
 screenshots
 *.log
+backend/.env
+frontend/.env
