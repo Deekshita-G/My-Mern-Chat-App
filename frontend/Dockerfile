@@ -5,7 +5,7 @@ WORKDIR /app
 COPY frontend/package*.json ./
 RUN npm install --legacy-peer-deps
 
-COPY frontend ./
+COPY . .
 
 ARG REACT_APP_API_URL=http://localhost:5000
 ARG REACT_APP_SOCKET_URL=http://localhost:5000
