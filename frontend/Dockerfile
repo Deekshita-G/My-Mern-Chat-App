@@ -2,26 +2,26 @@ FROM node:18-alpine AS build
 
 WORKDIR /app
 
-COPY frontend/package*.json ./
-RUN npm install --legacy-peer-deps
-
-COPY . .
-
 ARG REACT_APP_API_URL=http://localhost:5000
 ARG REACT_APP_SOCKET_URL=http://localhost:5000
+
 ENV REACT_APP_API_URL=$REACT_APP_API_URL
 ENV REACT_APP_SOCKET_URL=$REACT_APP_SOCKET_URL
 
+COPY frontend/package*.json ./
+
+RUN npm ci --legacy-peer-deps
+
+COPY frontend/public ./public
+COPY frontend/src ./src
+
 RUN npm run build
 
-FROM node:18-alpine
+FROM nginx:1.27-alpine AS production
 
-WORKDIR /app
-
-RUN npm install -g serve
-
-COPY --from=build /app/build ./build
+COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/build /usr/share/nginx/html
 
 EXPOSE 3000
 
-CMD ["serve", "-s", "build", "-l", "3000"]
+CMD ["nginx", "-g", "daemon off;"]
