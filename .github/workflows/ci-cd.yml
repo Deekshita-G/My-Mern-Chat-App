@@ -20,7 +20,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build Backend
-        run: docker build --no-cache -t backend ./backend
+        rrun: docker build -f backend/Dockerfile .
 
       - name: Build Frontend
         run: docker build --no-cache -t frontend ./frontend
