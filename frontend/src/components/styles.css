@@ -1,6 +1,8 @@
 .messages {
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
+  flex: 1;
+  overflow-y: auto;
   scrollbar-width: none;
+  padding-right: 4px;
 }

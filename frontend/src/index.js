@@ -1,6 +1,6 @@
-// index.js
 import React from "react";
 import ReactDOM from "react-dom";
+import axios from "axios";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -8,12 +8,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import ChatProvider from "./Context/ChatProvider";
 import { BrowserRouter } from "react-router-dom";
 
-// Fix for "process is not defined" error
-window.process = {
-  env: {
-    NODE_ENV: 'development',
-  },
-};
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || "";
 
 ReactDOM.render(
   <ChakraProvider>
@@ -26,5 +21,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-// Optional: For measuring performance
 reportWebVitals();
