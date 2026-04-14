@@ -2,10 +2,13 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-COPY backend/package*.json ./
-RUN npm install
+ENV NODE_ENV=production
 
-COPY backend .
+COPY backend/package*.json ./
+
+RUN npm ci --omit=dev && npm cache clean --force
+
+COPY backend/. ./
 
 EXPOSE 5000
 
